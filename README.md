@@ -15,6 +15,8 @@ A collection of personal AutoHotkey v2 scripts for Windows workflow automation.
 
 Scripts that bridge the gap where Windows CLI tools (like Claude Code) cannot accept clipboard images directly — capture the screen, save the image to a file, and copy the **file path** to the clipboard for easy pasting.
 
+> **Known limitation:** These scripts are tested with **region capture (area selection) only**. Other capture modes (active window, scroll capture, full screen, etc.) may not work correctly.
+
 ### 1-1. Using Windows Snipping Tool
 
 #### `ahks/clip_capture_wintcap_temp.ahk`
