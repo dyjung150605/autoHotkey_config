@@ -17,6 +17,8 @@ Scripts that bridge the gap where Windows CLI tools (like Claude Code) cannot ac
 
 > **Known limitation:** These scripts are tested with **region capture (area selection) only**. Other capture modes (active window, scroll capture, full screen, etc.) may not work correctly.
 
+> **Tip:** If you have Windows Clipboard History enabled (`Win+V`), both the captured image and the file path are stored in the history. You can selectively paste either one as needed.
+
 ### 1-1. Using Windows Snipping Tool
 
 #### `ahks/clip_capture_wintcap_temp.ahk`
