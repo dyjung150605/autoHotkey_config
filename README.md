@@ -2,18 +2,22 @@
 
 **English** | [한국어](README_ko.md)
 
-Personal AutoHotkey v2 scripts for screen capture workflow automation on Windows.
-
-These scripts bridge the gap where Windows CLI tools (like Claude Code) cannot accept clipboard images directly — instead, they capture the screen, save the image to a file, and copy the **file path** to the clipboard for easy pasting.
+A collection of personal AutoHotkey v2 scripts for Windows workflow automation.
 
 ## Requirements
 
 - [AutoHotkey v2](https://www.autohotkey.com/)
 - Windows 10/11
 
-## Scripts
+---
 
-### `ahks/clip_capture_wintcap_temp.ahk`
+## 1. Screen Capture & Clipboard Path
+
+Scripts that bridge the gap where Windows CLI tools (like Claude Code) cannot accept clipboard images directly — capture the screen, save the image to a file, and copy the **file path** to the clipboard for easy pasting.
+
+### 1-1. Windows Snipping Tool
+
+#### `ahks/clip_capture_wintcap_temp.ahk`
 
 | Item | Description |
 |---|---|
@@ -23,7 +27,7 @@ These scripts bridge the gap where Windows CLI tools (like Claude Code) cannot a
 
 Capture screen area with Windows Snipping Tool, save as PNG to TEMP folder, copy file path to clipboard.
 
-### `ahks/clip_capture_wincap_dir.ahk`
+#### `ahks/clip_capture_wincap_dir.ahk`
 
 | Item | Description |
 |---|---|
@@ -35,19 +39,23 @@ Same as above, but saves to a user-specified directory.
 
 > **Note:** Shares the same hotkey as `wintcap_temp`. Run only one of the two.
 
-### `ahks/clip_capture_pickcap_dir.ahk`
+### 1-2. PickPick (Third-party)
+
+#### `ahks/clip_capture_pickcap_dir.ahk`
 
 | Item | Description |
 |---|---|
 | Hotkey | `Ctrl+Alt+PrtSc` (configurable, PickPick default) |
-| Capture tool | [PickPick](https://picpick.app/) (third-party) |
+| Capture tool | [PickPick](https://picpick.app/) |
 | Save location | `TEMP` folder |
 
 Integrates with PickPick screen capture — saves the clipboard image to TEMP independently of PickPick's own auto-save path, then copies the file path to clipboard.
 
 > **Note:** `Ctrl+Alt+PrtSc` is the PickPick default for region capture. Change the `~^!PrintScreen` line in the script to match your own PickPick hotkey.
 
-> Can run simultaneously with either `wintcap_temp` or `wincap_dir` (no hotkey conflict).
+> Can run simultaneously with any of the Windows Snipping Tool scripts (no hotkey conflict).
+
+---
 
 ## Usage
 
@@ -60,7 +68,7 @@ Integrates with PickPick screen capture — saves the clipboard image to TEMP in
 
 Place a shortcut to the `.ahk` file in the Windows startup folder:
 
-```
+```text
 Win+R → shell:startup
 ```
 
