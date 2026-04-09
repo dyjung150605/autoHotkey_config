@@ -39,13 +39,13 @@ Same as above, but saves to a user-specified directory.
 
 | Item | Description |
 |---|---|
-| Hotkey | `Shift+F7` (configurable) |
+| Hotkey | `Ctrl+Alt+PrtSc` (configurable, PickPick default) |
 | Capture tool | [PickPick](https://picpick.app/) (third-party) |
 | Save location | `TEMP` folder |
 
 Integrates with PickPick screen capture — saves the clipboard image to TEMP independently of PickPick's own auto-save path, then copies the file path to clipboard.
 
-> **Note:** `Shift+F7` is the author's PickPick hotkey setting. Change the `~+F7` line in the script to match your own PickPick hotkey.
+> **Note:** `Ctrl+Alt+PrtSc` is the PickPick default for region capture. Change the `~^!PrintScreen` line in the script to match your own PickPick hotkey.
 
 > Can run simultaneously with either `wintcap_temp` or `wincap_dir` (no hotkey conflict).
 
