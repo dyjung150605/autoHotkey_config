@@ -8,7 +8,7 @@ These scripts bridge the gap where Windows CLI tools (like Claude Code) cannot a
 
 ## Requirements
 
-- [AutoHotkey v2](https://www.autohotkey.com/) (portable or installed)
+- [AutoHotkey v2](https://www.autohotkey.com/)
 - Windows 10/11
 
 ## Scripts

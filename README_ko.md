@@ -8,7 +8,7 @@ Windows CLI 환경(Claude Code 등)에서 클립보드 이미지 붙여넣기가
 
 ## 요구사항
 
-- [AutoHotkey v2](https://www.autohotkey.com/) (포터블 또는 설치)
+- [AutoHotkey v2](https://www.autohotkey.com/)
 - Windows 10/11
 
 ## 스크립트
