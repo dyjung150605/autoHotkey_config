@@ -39,7 +39,7 @@ Same as above, but saves to a user-specified directory.
 
 > **Note:** Shares the same hotkey as `wintcap_temp`. Run only one of the two.
 
-### 1-2. PickPick (Third-party)
+### 1-2. Using PickPick (Third-party)
 
 #### `ahks/clip_capture_pickcap_dir.ahk`
 

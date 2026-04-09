@@ -39,7 +39,7 @@ Windows 캡처 도구로 영역 캡처 → TEMP 폴더에 PNG 저장 → 경로 
 
 > **주의:** `wintcap_temp`와 단축키가 동일하므로 둘 중 하나만 실행할 것.
 
-### 1-2. PickPick (써드파티)
+### 1-2. PickPick을 사용하는 경우 (써드파티)
 
 #### `ahks/clip_capture_pickcap_dir.ahk`
 
