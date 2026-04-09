@@ -41,9 +41,9 @@ Same as above, but saves to a user-specified directory.
 |---|---|
 | Hotkey | `Shift+F7` |
 | Capture tool | [PickPick](https://picpick.app/) (third-party) |
-| Save location | Custom `SAVE_DIR` (configurable) |
+| Save location | `TEMP` folder |
 
-Integrates with PickPick screen capture — detects the latest saved file in `SAVE_DIR` and copies its path to clipboard. If `SAVE_DIR` matches PickPick's auto-save path, both work together. If set to a different path, images are saved in two locations.
+Integrates with PickPick screen capture — saves the clipboard image to TEMP independently of PickPick's own auto-save path, then copies the file path to clipboard.
 
 > Can run simultaneously with either `wintcap_temp` or `wincap_dir` (no hotkey conflict).
 
