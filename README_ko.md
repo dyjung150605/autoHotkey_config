@@ -15,7 +15,7 @@ Windows 워크플로우 자동화를 위한 AutoHotkey v2 스크립트 모음입
 
 Windows CLI 환경(Claude Code 등)에서 클립보드 이미지 붙여넣기가 불가능한 문제를 해결합니다. 화면을 캡처하고, 이미지를 파일로 저장한 뒤, **파일 경로**를 클립보드에 복사하여 CLI에서 바로 붙여넣을 수 있게 합니다.
 
-### 1-1. Windows 캡처 도구
+### 1-1. Windows 캡처 도구를 사용하는 경우
 
 #### `ahks/clip_capture_wintcap_temp.ahk`
 
