@@ -41,9 +41,9 @@ Windows 캡처 도구로 영역 캡처 → TEMP 폴더에 PNG 저장 → 경로 
 |---|---|
 | 단축키 | `Shift+F7` |
 | 캡처 도구 | [PickPick](https://picpick.app/) (써드파티) |
-| 저장 위치 | PickPick 자동저장 폴더 |
+| 저장 위치 | 사용자 지정 `SAVE_DIR` |
 
-PickPick 영역 캡처 연동 → 자동저장 폴더에서 최신 파일 감지 → 경로 클립보드 복사
+PickPick 영역 캡처 연동 → `SAVE_DIR`에서 최신 파일 감지 → 경로 클립보드 복사. `SAVE_DIR`을 PickPick 자동저장 경로와 동일하게 설정하면 함께 동작하고, 다른 경로를 지정하면 두 군데에 이미지가 저장됩니다.
 
 > `wintcap_temp` 또는 `wincap_dir`과 동시 실행 가능 (단축키 충돌 없음).
 
