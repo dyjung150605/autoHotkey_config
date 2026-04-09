@@ -39,11 +39,13 @@ Windows 캡처 도구로 영역 캡처 → TEMP 폴더에 PNG 저장 → 경로 
 
 | 항목 | 설명 |
 |---|---|
-| 단축키 | `Shift+F7` |
+| 단축키 | `Shift+F7` (변경 가능) |
 | 캡처 도구 | [PickPick](https://picpick.app/) (써드파티) |
 | 저장 위치 | `TEMP` 폴더 |
 
 PickPick 영역 캡처 연동 → 클립보드 이미지를 TEMP에 독립 저장 → 경로 클립보드 복사. PickPick 자동저장 경로와 무관하게 동작합니다.
+
+> **참고:** `Shift+F7`은 작성자의 PickPick 단축키 설정 기준입니다. 스크립트 내 `~+F7` 부분을 본인의 PickPick 단축키에 맞게 변경하세요.
 
 > `wintcap_temp` 또는 `wincap_dir`과 동시 실행 가능 (단축키 충돌 없음).
 
