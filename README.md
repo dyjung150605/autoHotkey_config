@@ -11,29 +11,49 @@ A collection of personal AutoHotkey v2 scripts for Windows workflow automation.
 
 ---
 
-## 1. Clipboard Image → Smart Paste
+## 1. Clipboard → Smart Paste
 
 For environments where Claude Code CLI and GUI are used side by side.
 
 **Background:** Claude Code CLI cannot accept clipboard images — it requires a file path. The GUI extension supports both.
 
-### `ahks/clip_capture_smartpaste.ahk`
+---
+
+### `ahks/clip_capture_smartpaste.ahk` ✨ Recommended
+
+Detects both images and file paths.
 
 | Item | Description |
 |---|---|
-| GUI paste | `Ctrl+V` — image (standard behavior) |
+| GUI paste | `Ctrl+V` — image/text (standard OS behavior) |
 | CLI paste | `Ctrl+Alt+V` — file path |
 
-Watches for any image arriving on the clipboard (screen capture, browser copy, etc.), automatically saves it as PNG to TEMP, and stores the path internally.
+Watches clipboard automatically:
+- **Image**: saves as PNG to TEMP, stores path
+- **File** (Explorer copy, etc.): stores path directly
+- **Text**: ignored
 
-1. Capture or copy any image → image lands on clipboard
-2. AHK automatically saves PNG to TEMP + stores path internally
-3. **`Ctrl+V`** → paste image in GUI (standard OS behavior, AHK does not intercept)
+1. Capture an image or copy a file → lands on clipboard
+2. AHK automatically stores the path
+3. **`Ctrl+V`** → paste image in GUI
 4. **`Ctrl+Alt+V`** → paste file path in CLI
+
+---
+
+### `ahks/clip_capture_smartimagepaste.ahk`
+
+Previous version — detects images only. Simpler if file path detection is not needed.
+
+| Item | Description |
+|---|---|
+| GUI paste | `Ctrl+V` — image (standard OS behavior) |
+| CLI paste | `Ctrl+Alt+V` — saved image path |
+
+---
 
 #### Changing the hotkey
 
-If `Ctrl+Alt+V` conflicts with another app, change the `^!v::` line in the script.
+Both scripts use `PATH_PASTE_HOTKEY` at the top — change only that line.
 
 | Symbol | Key |
 |---|---|
@@ -43,10 +63,10 @@ If `Ctrl+Alt+V` conflicts with another app, change the `^!v::` line in the scrip
 | `#` | Win |
 
 ```ahk
-^!v::   ; Ctrl+Alt+V  (default)
-^+v::   ; Ctrl+Shift+V
-#v::    ; Win+V
-^!+v::  ; Ctrl+Alt+Shift+V
+PATH_PASTE_HOTKEY := "^!v"   ; Ctrl+Alt+V  (default)
+PATH_PASTE_HOTKEY := "^+v"   ; Ctrl+Shift+V
+PATH_PASTE_HOTKEY := "#v"    ; Win+V
+PATH_PASTE_HOTKEY := "^!+v"  ; Ctrl+Alt+Shift+V
 ```
 
 ---
