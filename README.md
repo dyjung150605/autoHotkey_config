@@ -17,7 +17,7 @@ For environments where Claude Code CLI and GUI are used side by side.
 
 **Background:** Claude Code CLI cannot accept clipboard images — it requires a file path. The GUI extension supports both.
 
-### `ahks/clip_capture_smartpaste.ahk` ✨ Recommended
+### `ahks/clip_capture_smartpaste.ahk`
 
 | Item | Description |
 |---|---|
@@ -30,42 +30,6 @@ Watches for any image arriving on the clipboard (screen capture, browser copy, e
 2. AHK automatically saves PNG to TEMP + stores path internally
 3. **`Ctrl+V`** → paste image in GUI
 4. **`Ctrl+Alt+V`** → paste file path in CLI
-
----
-
-## 2. Screen Capture & Path Copy (Legacy)
-
-Older scripts that directly invoke a capture tool and copy the path to clipboard. Superseded by `clip_capture_smartpaste.ahk`.
-
-### `ahks/clip_capture_wintcap_temp.ahk`
-
-| Item | Description |
-|---|---|
-| Hotkey | `Ctrl+Alt+C` |
-| Capture tool | Windows Snipping Tool |
-| Save location | `TEMP` folder |
-
-### `ahks/clip_capture_wincap_dir.ahk`
-
-| Item | Description |
-|---|---|
-| Hotkey | `Ctrl+Alt+C` |
-| Capture tool | Windows Snipping Tool |
-| Save location | Custom folder |
-
-> Shares the same hotkey as `wintcap_temp` — run only one.
-
-### `ahks/clip_capture_pickcap_dir.ahk`
-
-| Item | Description |
-|---|---|
-| Hotkey | `Ctrl+Alt+PrtSc` (PickPick default) |
-| Capture tool | [PickPick](https://picpick.app/) |
-| Save location | `TEMP` folder |
-
-### `ahks/clip_capture_pickcap_winshiftF7.ahk` (Legacy)
-
-Earlier version of smart paste. Copies file path directly to clipboard after capture, overwriting the image.
 
 ---
 
