@@ -11,92 +11,63 @@ A collection of personal AutoHotkey v2 scripts for Windows workflow automation.
 
 ---
 
-## 1. Screen Capture & Clipboard Path
+## 1. Clipboard Image → Smart Paste
 
-Scripts that bridge the gap where Windows CLI tools (like Claude Code) cannot accept clipboard images directly — capture the screen, save the image to a file, and copy the **file path** to the clipboard for easy pasting.
+For environments where Claude Code CLI and GUI are used side by side.
 
-> **Known limitation:** These scripts are tested with **region capture (area selection) only**. Other capture modes (active window, scroll capture, full screen, etc.) may not work correctly.
+**Background:** Claude Code CLI cannot accept clipboard images — it requires a file path. The GUI extension supports both.
 
-> **Tip:** If you have Windows Clipboard History enabled (`Win+V`), both the captured image and the file path are stored in the history. You can selectively paste either one as needed.
+### `ahks/clip_capture_smartpaste.ahk` ✨ Recommended
 
-### 1-1. Using Windows Snipping Tool
+| Item | Description |
+|---|---|
+| GUI paste | `Ctrl+V` — image (standard behavior) |
+| CLI paste | `Ctrl+Alt+V` — file path |
 
-#### `ahks/clip_capture_wintcap_temp.ahk`
+Watches for any image arriving on the clipboard (screen capture, browser copy, etc.), automatically saves it as PNG to TEMP, and stores the path internally.
+
+1. Capture or copy any image → image lands on clipboard
+2. AHK automatically saves PNG to TEMP + stores path internally
+3. **`Ctrl+V`** → paste image in GUI
+4. **`Ctrl+Alt+V`** → paste file path in CLI
+
+---
+
+## 2. Screen Capture & Path Copy (Legacy)
+
+Older scripts that directly invoke a capture tool and copy the path to clipboard. Superseded by `clip_capture_smartpaste.ahk`.
+
+### `ahks/clip_capture_wintcap_temp.ahk`
 
 | Item | Description |
 |---|---|
 | Hotkey | `Ctrl+Alt+C` |
-| Capture tool | Windows Snipping Tool (`ms-screenclip:`) |
-| Save location | `TEMP` folder (default) / custom `SAVE_DIR` |
+| Capture tool | Windows Snipping Tool |
+| Save location | `TEMP` folder |
 
-Capture screen area with Windows Snipping Tool, save as PNG to TEMP folder, copy file path to clipboard.
-
-#### `ahks/clip_capture_wincap_dir.ahk`
+### `ahks/clip_capture_wincap_dir.ahk`
 
 | Item | Description |
 |---|---|
 | Hotkey | `Ctrl+Alt+C` |
-| Capture tool | Windows Snipping Tool (`ms-screenclip:`) |
-| Save location | Custom `SAVE_DIR` (configurable) |
+| Capture tool | Windows Snipping Tool |
+| Save location | Custom folder |
 
-Same as above, but saves to a user-specified directory.
+> Shares the same hotkey as `wintcap_temp` — run only one.
 
-> **Note:** Shares the same hotkey as `wintcap_temp`. Run only one of the two.
-
-### 1-2. Using PickPick (Third-party)
-
-#### `ahks/clip_capture_pickcap_dir.ahk`
+### `ahks/clip_capture_pickcap_dir.ahk`
 
 | Item | Description |
 |---|---|
-| Hotkey | `Ctrl+Alt+PrtSc` (configurable, PickPick default) |
+| Hotkey | `Ctrl+Alt+PrtSc` (PickPick default) |
 | Capture tool | [PickPick](https://picpick.app/) |
 | Save location | `TEMP` folder |
 
-Integrates with PickPick screen capture — saves the clipboard image to TEMP independently of PickPick's own auto-save path, then copies the file path to clipboard.
+### `ahks/clip_capture_pickcap_winshiftF7.ahk` (Legacy)
 
-> **Note:** `Ctrl+Alt+PrtSc` is the PickPick default for region capture. Change the `~^!PrintScreen` line in the script to match your own PickPick hotkey.
-
-> Can run simultaneously with any of the Windows Snipping Tool scripts (no hotkey conflict).
+Earlier version of smart paste. Copies file path directly to clipboard after capture, overwriting the image.
 
 ---
-
-### 1-3. PickPick + Smart Paste — CLI/GUI Split (Recommended)
-
-Designed for environments where Claude Code CLI and GUI are used side by side. Splits the paste behavior by hotkey so both workflows are covered with a single capture.
-
-#### `ahks/clip_capture_smartpaste.ahk` ✨ Recommended
-
-| Item | Description |
-|---|---|
-| Capture | PickPick `Shift+F7` directly (no AHK key injection) |
-| GUI paste | `Ctrl+V` — image |
-| CLI paste | `Ctrl+Alt+V` — file path |
-| Capture tool | [PickPick](https://picpick.app/) |
-
-Uses `OnClipboardChange` to detect when PickPick places an image on the clipboard. No key injection — stable and reliable.
-
-1. **`Shift+F7`** → PickPick captures → image placed on clipboard
-2. AHK automatically saves PNG to TEMP + stores path internally
-3. **`Ctrl+V`** → paste image in GUI (Claude Code panel)
-4. **`Ctrl+Alt+V`** → paste file path in CLI (integrated terminal)
-
-> **Background:** Claude Code CLI cannot accept clipboard images — it requires a file path. The GUI extension supports both. This script handles both with a single capture.
-
-> **PickPick setup:** Set region capture hotkey to `Shift+F7` and enable auto-save.
-
-#### `ahks/clip_capture_pickcap_winshiftF7.ahk` (Legacy)
-
-Earlier version of the smart paste script. Copies the file path directly to clipboard after capture, overwriting the image. Superseded by `clip_capture_smartpaste.ahk`.
-
----
-
-## Usage
-
-1. Run the `.ahk` script (double-click if installed, or drag onto `AutoHotkey.exe` for portable)
-2. Press the assigned hotkey and select the capture area
-3. The saved image's file path is now in your clipboard
-4. Paste (`Ctrl+V`) the path in Claude Code CLI
 
 ## Auto-start
 

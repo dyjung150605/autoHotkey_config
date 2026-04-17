@@ -11,92 +11,63 @@ Windows 워크플로우 자동화를 위한 AutoHotkey v2 스크립트 모음입
 
 ---
 
-## 1. 화면 캡처 & 클립보드 경로 복사
+## 1. 클립보드 이미지 → 스마트 붙여넣기
 
-Windows CLI 환경(Claude Code 등)에서 클립보드 이미지 붙여넣기가 불가능한 문제를 해결합니다. 화면을 캡처하고, 이미지를 파일로 저장한 뒤, **파일 경로**를 클립보드에 복사하여 CLI에서 바로 붙여넣을 수 있게 합니다.
+Claude Code처럼 CLI와 GUI를 함께 쓰는 환경에서 이미지 붙여넣기 방식을 분리합니다.
 
-> **알려진 제한사항:** 이 스크립트들은 **영역 지정 캡처(드래그 방식)에서만 테스트**되었습니다. 활성 창 캡처, 스크롤 캡처, 전체 화면 캡처 등 다른 캡처 모드에서는 정상 동작하지 않을 수 있습니다.
+**배경:** Claude Code CLI는 클립보드 이미지를 직접 붙여넣을 수 없고 파일 경로만 허용합니다. GUI(확장프로그램)는 이미지/경로 모두 지원합니다.
 
-> **팁:** Windows 클립보드 히스토리(`Win+V`)를 사용 중이라면, 캡처된 이미지와 파일 경로가 모두 히스토리에 저장됩니다. 필요에 따라 이미지 또는 경로를 선택하여 붙여넣을 수 있습니다.
+### `ahks/clip_capture_smartpaste.ahk` ✨ 권장
 
-### 1-1. Windows 캡처 도구를 사용하는 경우
+| 항목 | 설명 |
+|---|---|
+| GUI 붙여넣기 | `Ctrl+V` — 이미지 (기본 동작) |
+| CLI 붙여넣기 | `Ctrl+Alt+V` — 파일 경로 |
 
-#### `ahks/clip_capture_wintcap_temp.ahk`
+클립보드에 이미지가 올라오는 모든 경우(캡처 도구, 브라우저 복사 등)를 자동 감지하여 TEMP에 PNG로 저장하고 경로를 내부적으로 보관합니다.
+
+1. 이미지를 캡처하거나 복사 → 클립보드에 이미지 올라옴
+2. AHK가 자동으로 TEMP에 PNG 저장 + 경로 내부 보관
+3. **`Ctrl+V`** → GUI에서 이미지 붙여넣기
+4. **`Ctrl+Alt+V`** → CLI에서 경로 붙여넣기
+
+---
+
+## 2. 화면 캡처 & 경로 복사 (구형 방식)
+
+캡처 도구를 직접 호출하고 경로를 클립보드에 복사하는 이전 방식의 스크립트들입니다. `clip_capture_smartpaste.ahk`로 대체 권장.
+
+### `ahks/clip_capture_wintcap_temp.ahk`
 
 | 항목 | 설명 |
 |---|---|
 | 단축키 | `Ctrl+Alt+C` |
-| 캡처 도구 | Windows 캡처 도구 (`ms-screenclip:`) |
-| 저장 위치 | `TEMP` 폴더 (기본) / `SAVE_DIR` 설정 가능 |
+| 캡처 도구 | Windows 캡처 도구 |
+| 저장 위치 | `TEMP` 폴더 |
 
-Windows 캡처 도구로 영역 캡처 → TEMP 폴더에 PNG 저장 → 경로 클립보드 복사
-
-#### `ahks/clip_capture_wincap_dir.ahk`
+### `ahks/clip_capture_wincap_dir.ahk`
 
 | 항목 | 설명 |
 |---|---|
 | 단축키 | `Ctrl+Alt+C` |
-| 캡처 도구 | Windows 캡처 도구 (`ms-screenclip:`) |
-| 저장 위치 | 사용자 지정 `SAVE_DIR` |
+| 캡처 도구 | Windows 캡처 도구 |
+| 저장 위치 | 사용자 지정 폴더 |
 
-위와 동일하나, 사용자가 지정한 폴더에 저장합니다.
+> `wintcap_temp`와 단축키가 동일하므로 둘 중 하나만 실행할 것.
 
-> **주의:** `wintcap_temp`와 단축키가 동일하므로 둘 중 하나만 실행할 것.
-
-### 1-2. PickPick을 사용하는 경우 (써드파티)
-
-#### `ahks/clip_capture_pickcap_dir.ahk`
+### `ahks/clip_capture_pickcap_dir.ahk`
 
 | 항목 | 설명 |
 |---|---|
-| 단축키 | `Ctrl+Alt+PrtSc` (변경 가능, PickPick 기본값) |
+| 단축키 | `Ctrl+Alt+PrtSc` (PickPick 기본값) |
 | 캡처 도구 | [PickPick](https://picpick.app/) |
 | 저장 위치 | `TEMP` 폴더 |
 
-PickPick 영역 캡처 연동 → 클립보드 이미지를 TEMP에 독립 저장 → 경로 클립보드 복사. PickPick 자동저장 경로와 무관하게 동작합니다.
+### `ahks/clip_capture_pickcap_winshiftF7.ahk` (레거시)
 
-> **참고:** `Ctrl+Alt+PrtSc`는 PickPick 기본 지정 영역 캡처 단축키입니다. 스크립트 내 `~^!PrintScreen` 부분을 본인의 PickPick 단축키에 맞게 변경하세요.
-
-> Windows 캡처 도구 스크립트와 동시 실행 가능 (단축키 충돌 없음).
+`clip_capture_smartpaste.ahk` 이전 버전. 캡처 후 경로를 클립보드에 직접 복사합니다 (이미지 덮어씀).
 
 ---
-
-### 1-3. PickPick + 스마트 붙여넣기 — CLI/GUI 자동 분기 (권장)
-
-Claude Code처럼 CLI와 GUI를 동시에 쓰는 환경에서 붙여넣기 방식을 단축키로 분리합니다.
-
-#### `ahks/clip_capture_smartpaste.ahk` ✨ 권장
-
-| 항목 | 설명 |
-|---|---|
-| 캡처 | PickPick `Shift+F7` 직접 사용 (AHK 개입 없음) |
-| GUI 붙여넣기 | `Ctrl+V` — 이미지 |
-| CLI 붙여넣기 | `Ctrl+Alt+V` — 파일 경로 |
-| 캡처 도구 | [PickPick](https://picpick.app/) |
-
-`OnClipboardChange`로 클립보드에 이미지가 올라오는 순간을 감지합니다. AHK가 PickPick에 키를 주입하지 않으므로 안정적입니다.
-
-1. **`Shift+F7`** → PickPick이 직접 캡처 → 이미지를 클립보드에 올림
-2. AHK가 자동으로 TEMP에 PNG 저장 + 경로 내부 보관
-3. **`Ctrl+V`** → GUI(Claude Code 패널)에서 이미지 붙여넣기
-4. **`Ctrl+Alt+V`** → CLI(통합 터미널)에서 경로 붙여넣기
-
-> **배경:** Claude Code CLI는 클립보드 이미지를 붙여넣을 수 없고 파일 경로만 허용합니다. GUI(확장프로그램)는 이미지/경로 모두 지원합니다.
-
-> **PickPick 설정:** 단축키를 `Shift+F7`로 지정하고 자동저장을 활성화하세요.
-
-#### `ahks/clip_capture_pickcap_winshiftF7.ahk` (레거시)
-
-스마트 붙여넣기 이전 버전. 캡처 후 경로를 클립보드에 직접 복사합니다 (이미지 덮어씀). `clip_capture_smartpaste.ahk`로 대체 권장.
-
----
-
-## 사용법
-
-1. `.ahk` 파일 실행 (설치 시 더블클릭, 포터블은 `AutoHotkey.exe`에 드래그앤드롭)
-2. 단축키 입력 → 캡처 영역 선택
-3. 저장된 이미지의 파일 경로가 클립보드에 복사됨
-4. Claude Code CLI에서 `Ctrl+V`로 경로 붙여넣기
 
 ## 자동 실행
 
