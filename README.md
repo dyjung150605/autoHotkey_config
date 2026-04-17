@@ -28,8 +28,26 @@ Watches for any image arriving on the clipboard (screen capture, browser copy, e
 
 1. Capture or copy any image → image lands on clipboard
 2. AHK automatically saves PNG to TEMP + stores path internally
-3. **`Ctrl+V`** → paste image in GUI
+3. **`Ctrl+V`** → paste image in GUI (standard OS behavior, AHK does not intercept)
 4. **`Ctrl+Alt+V`** → paste file path in CLI
+
+#### Changing the hotkey
+
+If `Ctrl+Alt+V` conflicts with another app, change the `^!v::` line in the script.
+
+| Symbol | Key |
+|---|---|
+| `^` | Ctrl |
+| `!` | Alt |
+| `+` | Shift |
+| `#` | Win |
+
+```ahk
+^!v::   ; Ctrl+Alt+V  (default)
+^+v::   ; Ctrl+Shift+V
+#v::    ; Win+V
+^!+v::  ; Ctrl+Alt+Shift+V
+```
 
 ---
 
