@@ -61,6 +61,34 @@ Integrates with PickPick screen capture — saves the clipboard image to TEMP in
 
 ---
 
+### 1-3. PickPick + Smart Paste — CLI/GUI Split (Recommended)
+
+Designed for environments where Claude Code CLI and GUI are used side by side. Splits the paste behavior by hotkey so both workflows are covered with a single capture.
+
+#### `ahks/clip_capture_smartpaste.ahk` ✨ Recommended
+
+| Item | Description |
+|---|---|
+| Capture hotkey | `Win+Shift+F7` |
+| GUI paste | `Ctrl+V` (standard paste — image) |
+| CLI paste | `Ctrl+Alt+V` (path paste) |
+| Capture tool | [PickPick](https://picpick.app/) (set Shift+F7 as PickPick hotkey) |
+
+After capture, **keeps the image in the clipboard** while saving the file path internally.
+
+- **GUI (Claude Code panel):** just `Ctrl+V` → image attached
+- **CLI (integrated terminal):** `Ctrl+Alt+V` → file path pasted
+
+> **Background:** Claude Code CLI cannot accept clipboard images — it requires a file path. The GUI extension supports both. This script handles both with a single capture.
+
+> **PickPick setup:** Set PickPick's region capture hotkey to `Shift+F7` and enable auto-save.
+
+#### `ahks/clip_capture_pickcap_winshiftF7.ahk` (Legacy)
+
+Earlier version of the smart paste script. Copies the file path directly to clipboard after capture, overwriting the image. Superseded by `clip_capture_smartpaste.ahk`.
+
+---
+
 ## Usage
 
 1. Run the `.ahk` script (double-click if installed, or drag onto `AutoHotkey.exe` for portable)
