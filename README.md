@@ -69,19 +69,21 @@ Designed for environments where Claude Code CLI and GUI are used side by side. S
 
 | Item | Description |
 |---|---|
-| Capture hotkey | `Win+Shift+F7` |
-| GUI paste | `Ctrl+V` (standard paste — image) |
-| CLI paste | `Ctrl+Alt+V` (path paste) |
-| Capture tool | [PickPick](https://picpick.app/) (set Shift+F7 as PickPick hotkey) |
+| Capture | PickPick `Shift+F7` directly (no AHK key injection) |
+| GUI paste | `Ctrl+V` — image |
+| CLI paste | `Ctrl+Alt+V` — file path |
+| Capture tool | [PickPick](https://picpick.app/) |
 
-After capture, **keeps the image in the clipboard** while saving the file path internally.
+Uses `OnClipboardChange` to detect when PickPick places an image on the clipboard. No key injection — stable and reliable.
 
-- **GUI (Claude Code panel):** just `Ctrl+V` → image attached
-- **CLI (integrated terminal):** `Ctrl+Alt+V` → file path pasted
+1. **`Shift+F7`** → PickPick captures → image placed on clipboard
+2. AHK automatically saves PNG to TEMP + stores path internally
+3. **`Ctrl+V`** → paste image in GUI (Claude Code panel)
+4. **`Ctrl+Alt+V`** → paste file path in CLI (integrated terminal)
 
 > **Background:** Claude Code CLI cannot accept clipboard images — it requires a file path. The GUI extension supports both. This script handles both with a single capture.
 
-> **PickPick setup:** Set PickPick's region capture hotkey to `Shift+F7` and enable auto-save.
+> **PickPick setup:** Set region capture hotkey to `Shift+F7` and enable auto-save.
 
 #### `ahks/clip_capture_pickcap_winshiftF7.ahk` (Legacy)
 
