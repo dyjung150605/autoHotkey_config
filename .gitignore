@@ -1,2 +1,3 @@
 테스트/
-*.log
+*.code-workspace
+ahks/debug.log
