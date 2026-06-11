@@ -61,9 +61,15 @@ _GetDroppedFile() {
     if !DllCall("OpenClipboard", "ptr", 0)
         return ""
     hDrop := DllCall("GetClipboardData", "uint", 15, "ptr")   ; 15 = CF_HDROP
-    if !hDrop { DllCall("CloseClipboard"); return "" }
+    if !hDrop {
+        DllCall("CloseClipboard")
+        return ""
+    }
     cnt := DllCall("Shell32\DragQueryFileW", "ptr", hDrop, "uint", 0xFFFFFFFF, "ptr", 0, "uint", 0, "uint")
-    if cnt != 1 { DllCall("CloseClipboard"); return "" }      ; 단일 파일만
+    if cnt != 1 {                                              ; 단일 파일만
+        DllCall("CloseClipboard")
+        return ""
+    }
     buf := Buffer(32768)
     DllCall("Shell32\DragQueryFileW", "ptr", hDrop, "uint", 0, "ptr", buf, "uint", 16384, "uint")
     DllCall("CloseClipboard")
