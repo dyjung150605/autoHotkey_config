@@ -46,10 +46,9 @@ ClipChanged(type) {
             p := SubStr(p, 2, StrLen(p) - 2)
         ; 텍스트가 유효 파일이 아니면 CF_HDROP 시도 (탐색기 Ctrl+C)
         attr := FileExist(p)
-        if (attr = "" || InStr(attr, "D"))
+        if (attr = "")
             p := _GetDroppedFile()
-        attr := FileExist(p)
-        if (attr != "" && !InStr(attr, "D")) {
+        if (FileExist(p) != "") {
             capturedFilePath := p
             capturedFileTime := A_Now
         }
