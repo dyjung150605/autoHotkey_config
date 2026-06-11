@@ -19,7 +19,17 @@
 
 ; ===== 설정 =====
 PATH_PASTE_HOTKEY := "^!v"            ; 경로 붙여넣기 단축키
-CAPTURE_DIR       := "D:\_captures"   ; PicPick 자동저장 폴더 (이미지 PNG)
+CAPTURE_DIR       := _GetPicPickFolder()  ; PicPick 자동저장 폴더 (ini에서 자동 감지)
+
+_GetPicPickFolder() {
+    ini := A_AppData "\PicPick\picpick.ini"
+    if FileExist(ini) {
+        folder := IniRead(ini, "Setting", "AutoSaveFolder", "")
+        if (folder != "")
+            return folder
+    }
+    return "D:\_captures"   ; 폴백: ini 없거나 키 없을 때
+}
 
 ; ===== 상태 =====
 capturedFilePath := ""               ; 탐색기에서 복사한 파일 경로
