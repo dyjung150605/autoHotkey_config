@@ -32,19 +32,39 @@ OnClipboardChange ClipChanged
 ; 탐색기 "파일 복사"만 추적 (이미지는 PicPick 폴더에서 직접 읽으므로 감시 불필요)
 ClipChanged(type) {
     global capturedFilePath, capturedFileTime, selfChange
-    if selfChange {                  ; 우리가 바꾼 변경이면 무시
-        selfChange := false
-        return
-    }
-    if type = 1 {                    ; 1 = 텍스트/파일경로
+    if selfChange { selfChange := false; return }
+    if type = 1 {
         p := Trim(A_Clipboard)
+        ; 여러 파일 선택 시 첫 경로만
+        if InStr(p, "`n")
+            p := Trim(StrSplit(p, "`n")[1])
+        ; "경로로 복사"(Shift+우클릭) 양쪽 큰따옴표 제거
+        if (SubStr(p, 1, 1) = '"' && SubStr(p, -1) = '"')
+            p := SubStr(p, 2, StrLen(p) - 2)
+        ; 텍스트가 유효 파일이 아니면 CF_HDROP 시도 (탐색기 Ctrl+C)
         attr := FileExist(p)
-        if (attr != "" && !InStr(attr, "D")) {  ; 파일만 (디렉토리 제외)
+        if (attr = "" || InStr(attr, "D"))
+            p := _GetDroppedFile()
+        attr := FileExist(p)
+        if (attr != "" && !InStr(attr, "D")) {
             capturedFilePath := p
             capturedFileTime := A_Now
         }
-        ; 일반 텍스트·폴더 경로는 무시
     }
+}
+
+; CF_HDROP 포맷에서 단일 파일 경로 추출 (탐색기 Ctrl+C 용)
+_GetDroppedFile() {
+    if !DllCall("OpenClipboard", "ptr", 0)
+        return ""
+    hDrop := DllCall("GetClipboardData", "uint", 15, "ptr")   ; 15 = CF_HDROP
+    if !hDrop { DllCall("CloseClipboard"); return "" }
+    cnt := DllCall("Shell32\DragQueryFileW", "ptr", hDrop, "uint", 0xFFFFFFFF, "ptr", 0, "uint", 0, "uint")
+    if cnt != 1 { DllCall("CloseClipboard"); return "" }      ; 단일 파일만
+    buf := Buffer(32768)
+    DllCall("Shell32\DragQueryFileW", "ptr", hDrop, "uint", 0, "ptr", buf, "uint", 16384, "uint")
+    DllCall("CloseClipboard")
+    return StrGet(buf)
 }
 
 PastePath(*) {
