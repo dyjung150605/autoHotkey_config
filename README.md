@@ -21,28 +21,29 @@ For environments where Claude Code CLI and GUI are used side by side.
 
 ### `ahks/clip_capture_smartpaste.ahk` ✨ Recommended
 
-Detects both images and file paths.
+Pastes the path of a captured image or a copied file. **Images come from PicPick's auto-save folder** (AHK does not save them itself).
 
 | Item | Description |
 |---|---|
 | GUI paste | `Ctrl+V` — image/text (standard OS behavior) |
-| CLI paste | `Ctrl+Alt+V` — file path |
+| CLI paste | `Ctrl+Alt+V` — path (whichever capture/copy is more recent) |
 
-Watches clipboard automatically:
-- **Image**: saves as PNG to TEMP, stores path
-- **File** (Explorer copy, etc.): stores path directly
-- **Text**: ignored
+- **Image**: uses the **newest PNG** in PicPick's auto-save folder (`CAPTURE_DIR`, default `D:\_captures`).
+- **File** (Explorer copy): stores the clipboard file path.
+- **Text**: ignored.
 
-1. Capture an image or copy a file → lands on clipboard
-2. AHK automatically stores the path
-3. **`Ctrl+V`** → paste image in GUI
-4. **`Ctrl+Alt+V`** → paste file path in CLI
+`Ctrl+Alt+V` pastes **whichever you did more recently** — image capture or file copy. It checks the file exists first and shows a 1.5s tooltip of what was pasted (warns if none).
+
+> **Prerequisite:** PicPick auto-save must be on and pointed at `CAPTURE_DIR`. Using a different capture tool? Just change `CAPTURE_DIR` to its folder.
 
 ---
 
-#### Changing the hotkey
+#### Settings
 
-The script uses `PATH_PASTE_HOTKEY` at the top — change only that line.
+Change only the two values at the top of the script.
+
+- `PATH_PASTE_HOTKEY` — paste hotkey (see symbols below)
+- `CAPTURE_DIR` — capture image folder (default `D:\_captures`)
 
 | Symbol | Key |
 |---|---|
