@@ -23,12 +23,13 @@ CAPTURE_DIR       := _GetPicPickFolder()  ; PicPick 자동저장 폴더 (ini에�
 
 _GetPicPickFolder() {
     ini := A_AppData "\PicPick\picpick.ini"
-    if FileExist(ini) {
-        folder := IniRead(ini, "Setting", "AutoSaveFolder", "")
-        if (folder != "")
-            return folder
-    }
-    return ""   ; PicPick 미설치 → CAPTURE_DIR 없음, 이미지 탐색 건너뜀
+    if !FileExist(ini)
+        return ""   ; PicPick 미설치 → CAPTURE_DIR 없음, 이미지 탐색 건너뜀
+    ; IniRead는 UTF-8 BOM 때문에 첫 섹션을 못 읽으므로 FileRead+정규식으로 파싱
+    content := FileRead(ini, "UTF-8")
+    if RegExMatch(content, "im)^AutoSaveFolder=([^\r\n]+)", &m)
+        return m[1]
+    return ""
 }
 
 ; ===== 상태 =====
