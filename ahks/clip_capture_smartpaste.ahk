@@ -32,7 +32,10 @@ OnClipboardChange ClipChanged
 ; 탐색기 "파일 복사"만 추적 (이미지는 PicPick 폴더에서 직접 읽으므로 감시 불필요)
 ClipChanged(type) {
     global capturedFilePath, capturedFileTime, selfChange
-    if selfChange { selfChange := false; return }
+    if selfChange {
+        selfChange := false
+        return
+    }
     if type = 1 {
         p := Trim(A_Clipboard)
         ; 여러 파일 선택 시 첫 경로만
