@@ -102,7 +102,7 @@ PastePath(*) {
     ; 2) 이미지 vs 파일복사 중 "더 최근" 선택
     target := ""
     if (imgPath != "" && capturedFilePath != "")
-        target := (imgTime > capturedFileTime) ? imgPath : capturedFilePath
+        target := (imgTime >= capturedFileTime) ? imgPath : capturedFilePath
     else if (imgPath != "")
         target := imgPath
     else if (capturedFilePath != "")
