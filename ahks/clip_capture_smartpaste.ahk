@@ -78,9 +78,11 @@ _GetDroppedFile() {
 PastePath(*) {
     global capturedFilePath, capturedFileTime, CAPTURE_DIR, selfChange
 
-    ; 1) PicPick 폴더 루트에서 가장 최근 PNG 찾기 (하위 날짜폴더는 제외)
+    ; 1) PicPick 폴더 루트에서 가장 최근 이미지 찾기 (하위 날짜폴더는 제외)
     imgPath := "", imgTime := ""
-    loop files CAPTURE_DIR "\*.png" {
+    loop files CAPTURE_DIR "\*.*" {
+        if !RegExMatch(A_LoopFileExt, "i)^(png|jpe?g|bmp|gif|tiff?)$")
+            continue
         if (imgTime = "" || A_LoopFileTimeModified > imgTime) {
             imgTime := A_LoopFileTimeModified
             imgPath := A_LoopFileFullPath
