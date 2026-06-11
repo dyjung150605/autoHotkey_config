@@ -38,11 +38,12 @@ ClipChanged(type) {
     }
     if type = 1 {                    ; 1 = 텍스트/파일경로
         p := Trim(A_Clipboard)
-        if FileExist(p) {            ; 실제 존재하는 파일이면 = 탐색기 복사
+        attr := FileExist(p)
+        if (attr != "" && !InStr(attr, "D")) {  ; 파일만 (디렉토리 제외)
             capturedFilePath := p
             capturedFileTime := A_Now
         }
-        ; 일반 텍스트는 무시
+        ; 일반 텍스트·폴더 경로는 무시
     }
 }
 
