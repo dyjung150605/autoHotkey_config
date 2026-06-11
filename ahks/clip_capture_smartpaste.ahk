@@ -28,7 +28,7 @@ _GetPicPickFolder() {
         if (folder != "")
             return folder
     }
-    return "D:\_captures"   ; 폴백: ini 없거나 키 없을 때
+    return ""   ; PicPick 미설치 → CAPTURE_DIR 없음, 이미지 탐색 건너뜀
 }
 
 ; ===== 상태 =====
@@ -90,7 +90,7 @@ PastePath(*) {
 
     ; 1) PicPick 폴더 루트에서 가장 최근 이미지 찾기 (하위 날짜폴더는 제외)
     imgPath := "", imgTime := ""
-    loop files CAPTURE_DIR "\*.*" {
+    loop files (CAPTURE_DIR != "" ? CAPTURE_DIR "\*.*" : "") {
         if !RegExMatch(A_LoopFileExt, "i)^(png|jpe?g|bmp|gif|tiff?|webp|pdf)$")
             continue
         if (imgTime = "" || A_LoopFileTimeModified > imgTime) {
@@ -109,7 +109,11 @@ PastePath(*) {
         target := capturedFilePath
 
     ; 3) 검증 후 붙여넣기
-    if (target = "" || !FileExist(target)) {
+    if (target = "") {
+        Send "^v"   ; 붙일 것 없으면 기본 붙여넣기로 폴백
+        return
+    }
+    if !FileExist(target) {
         Notify("붙일 캡처/파일이 없습니다")
         return
     }
