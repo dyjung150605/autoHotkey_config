@@ -40,20 +40,9 @@ Watches clipboard automatically:
 
 ---
 
-### `ahks/clip_capture_smartimagepaste.ahk`
-
-Previous version — detects images only. Simpler if file path detection is not needed.
-
-| Item | Description |
-|---|---|
-| GUI paste | `Ctrl+V` — image (standard OS behavior) |
-| CLI paste | `Ctrl+Alt+V` — saved image path |
-
----
-
 #### Changing the hotkey
 
-Both scripts use `PATH_PASTE_HOTKEY` at the top — change only that line.
+The script uses `PATH_PASTE_HOTKEY` at the top — change only that line.
 
 | Symbol | Key |
 |---|---|

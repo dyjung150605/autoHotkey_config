@@ -40,20 +40,9 @@ Claude Code처럼 CLI와 GUI를 함께 쓰는 환경에서 이미지/파일 붙�
 
 ---
 
-### `ahks/clip_capture_smartimagepaste.ahk`
-
-이미지만 감지하는 이전 버전입니다. 파일 경로 감지가 필요 없다면 이쪽이 더 단순합니다.
-
-| 항목 | 설명 |
-|---|---|
-| GUI 붙여넣기 | `Ctrl+V` — 이미지 (OS 기본 동작) |
-| CLI 붙여넣기 | `Ctrl+Alt+V` — 저장된 이미지 경로 |
-
----
-
 #### 단축키 변경
 
-두 스크립트 모두 상단의 `PATH_PASTE_HOTKEY` 값만 바꾸면 됩니다.
+스크립트 상단의 `PATH_PASTE_HOTKEY` 값만 바꾸면 됩니다.
 
 | 기호 | 키 |
 |---|---|
