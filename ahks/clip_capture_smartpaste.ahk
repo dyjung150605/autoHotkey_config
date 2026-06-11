@@ -19,12 +19,6 @@
 PATH_PASTE_HOTKEY := "^!v"  ; ← 여기서 단축키 변경
 
 capturedPath := ""
-LOG_FILE := "D:\DYCODE\003_AUTOHOTKEY\ahks\debug.log"
-
-Log(msg) {
-    global LOG_FILE
-    FileAppend FormatTime(, "yyyy-MM-dd HH:mm:ss") . " " . msg . "`n", LOG_FILE
-}
 
 Hotkey PATH_PASTE_HOTKEY, PastePath
 
@@ -44,7 +38,6 @@ ClipChanged(type) {
 
     if type = 2 {
         ; 이미지: TEMP에 PNG 저장 후 경로 보관
-        Log("[CLIP] 이미지 감지, 저장 중...")
         pathFile := A_Temp . "\clip_path_" . A_TickCount . ".txt"
         psFile   := A_Temp . "\clip_save_" . A_TickCount . ".ps1"
         psContent := "Add-Type -AssemblyName System.Windows.Forms`r`n"
@@ -70,9 +63,6 @@ ClipChanged(type) {
         if FileExist(pathFile) {
             capturedPath := FileRead(pathFile)
             FileDelete pathFile
-            Log("[OK] image path saved: " . capturedPath)
-        } else {
-            Log("[FAIL] PS1이 파일을 생성하지 못함")
         }
 
     } else if type = 1 {
@@ -80,7 +70,6 @@ ClipChanged(type) {
         path := Trim(A_Clipboard)
         if FileExist(path) {
             capturedPath := path
-            Log("[OK] file path saved: " . capturedPath)
         }
         ; 일반 텍스트면 무시
     }

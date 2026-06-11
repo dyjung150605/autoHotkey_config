@@ -24,12 +24,6 @@
 #Requires AutoHotkey v2.0
 
 capturedPath := ""
-LOG_FILE := "D:\DYCODE\003_AUTOHOTKEY\ahks\debug.log"
-
-Log(msg) {
-    global LOG_FILE
-    FileAppend FormatTime(, "yyyy-MM-dd HH:mm:ss") . " " . msg . "`n", LOG_FILE
-}
 
 OnClipboardChange ClipChanged
 
@@ -37,8 +31,6 @@ ClipChanged(type) {
     global capturedPath
     if type != 2  ; 2 = 이미지
         return
-
-    Log("[CLIP] 클립보드 이미지 감지, 저장 중...")
 
     pathFile := A_Temp . "\clip_path_" . A_TickCount . ".txt"
     psFile   := A_Temp . "\clip_save_" . A_TickCount . ".ps1"
@@ -66,9 +58,6 @@ ClipChanged(type) {
     if FileExist(pathFile) {
         capturedPath := FileRead(pathFile)
         FileDelete pathFile
-        Log("[OK] path saved: " . capturedPath)
-    } else {
-        Log("[FAIL] PS1이 파일을 생성하지 못함")
     }
 }
 
